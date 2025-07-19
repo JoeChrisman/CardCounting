@@ -1,4 +1,4 @@
-import Card from './card.js'
+import Card from './card.js';
 
 let images = {};
 
@@ -23,8 +23,8 @@ async function loadImages() {
         images['back'] = image;
     })());
 
-    for (let suit = Card.HEART; suit <= Card.SPADE; suit++) {
-        for (let rank = Card.TWO; rank <= Card.ACE; rank++) {
+    for (let suit = Card.heart; suit <= Card.spade; suit++) {
+        for (let rank = Card.two; rank <= Card.ace; rank++) {
             loading.push((async () => {
                 const name = Card.getCardName(rank, suit);
                 const image = await loadImage(`images/${name}.png`);

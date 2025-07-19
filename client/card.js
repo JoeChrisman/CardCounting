@@ -1,30 +1,29 @@
-import {images} from './images.js'
+import {images} from './images.js';
+import Sprite from './sprite.js';
 
-export default class Card {
-    static HEART = 0;
-    static CLUB = 1;
-    static DIAMOND = 2;
-    static SPADE = 3;
+export default class Card extends Sprite {
+    static heart = 0;
+    static club = 1;
+    static diamond = 2;
+    static spade = 3;
 
-    static TWO = 0;
-    static THREE = 1;
-    static FOUR = 2;
-    static FIVE = 3;
-    static SIX = 4;
-    static SEVEN = 5;
-    static EIGHT = 6;
-    static NINE = 7;
-    static TEN = 8;
-    static JACK = 9;
-    static QUEEN = 10;
-    static KING = 11;
-    static ACE = 12;
+    static two = 0;
+    static three = 1;
+    static four = 2;
+    static five = 3;
+    static six = 4;
+    static seven = 5;
+    static eight = 6;
+    static nine = 7;
+    static ten = 8;
+    static jack = 9;
+    static queen = 10;
+    static king = 11;
+    static ace = 12;
 
-    static DECK_SIZE = 52;
-
-    static CARD_SCALE = 50;
-    static CARD_WIDTH = Card.CARD_SCALE * 2.5;
-    static CARD_HEIGHT = Card.CARD_SCALE * 3.5;
+    static cardScale = 50;
+    static cardWidth = Card.cardScale * 2.5;
+    static cardHeight = Card.cardScale * 3.5;
 
     static getCardName(rank, suit) {
         const suitNames = ['hearts', 'clubs', 'diamonds', 'spades'];
@@ -34,16 +33,11 @@ export default class Card {
         return `${rankNames[rank]}_of_${suitNames[suit]}`;
     }
 
-    constructor(rank, suit, x, y) {
+    constructor(rank, suit, x, y, isHidden=true) {
+        super(x, y, Card.cardWidth, Card.cardHeight, 0);
         this.rank = rank;
         this.suit = suit;
-        this.x = x;
-        this.y = y;
-        this.image = images[Card.getCardName(this.rank, this.suit)];
-
-        if (!this.image) {
-            console.error('Missing image.', this);
-        }
+        isHidden ? this.hide() : this.show();
     }
 
     hide() {
@@ -52,14 +46,5 @@ export default class Card {
 
     show() {
         this.image = images[Card.getCardName(this.rank, this.suit)];
-    }
-
-    render(ctx) {
-        ctx.drawImage(
-            this.image,
-            this.x,
-            this.y,
-            Card.CARD_WIDTH,
-            Card.CARD_HEIGHT);
     }
 }
